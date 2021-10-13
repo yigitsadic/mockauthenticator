@@ -5,7 +5,7 @@ declare inserted_count int;
 begin
 LOOP
 select random_between(10000000, 99999999)::text into try_value;
-INSERT INTO otc(owner, payload, value, valid_between)
+INSERT INTO codes(owner, payload, value, valid_between)
 VALUES (o, p, try_value, tstzrange(now(), now() + (120 ||' seconds')::interval, '[)'))
     ON CONFLICT ON CONSTRAINT unique_code_between_time_window DO NOTHING returning value into inserted;
 GET DIAGNOSTICS inserted_count = ROW_COUNT;
