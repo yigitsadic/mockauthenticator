@@ -1,7 +1,5 @@
-CREATE OR REPLACE FUNCTION random_between(low INT ,high INT)
-   RETURNS INT AS
-$$
-BEGIN
-RETURN floor(random()* (high-low + 1) + low);
-END;
-$$ language 'plpgsql' STRICT;
+create or replace function random_between(low int, high int) returns int as $$
+begin
+    return floor(random()* (high-low + 1) + low);
+end;
+$$ language 'plpgsql';

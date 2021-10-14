@@ -1,12 +1,18 @@
-CREATE EXTENSION btree_gist;
+create extension btree_gist;
 
-CREATE TABLE IF NOT EXISTS codes
+create table if not exists codes
 (
-    id serial,
-    value character(8) COLLATE pg_catalog."default" NOT NULL,
-    owner varchar not null,
-    payload varchar not null,
-    valid_between tstzrange NOT NULL,
-    CONSTRAINT otc_pkey PRIMARY KEY (id),
-    CONSTRAINT unique_code_between_time_window EXCLUDE USING gist (valid_between WITH &&, value WITH =)
+    id serial primary key not null,
+    value char(10) not null,
+    owner varchar(150) not null,
+    domain varchar(150) not null,
+    valid_between tstzrange not null,
+
+    constraint unique_code_between_time_window exclude using gist (valid_between with &&, value with =)
+);
+
+create table if not exists user_subscriptions(
+    id serial primary key not null,
+    owner varchar(150) not null,
+    domain varchar(150) not null
 );
